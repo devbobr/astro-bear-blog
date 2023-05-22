@@ -1,0 +1,37 @@
+---
+import { CollectionEntry, getCollection } from "astro:content";
+import ImageWrapper from "../../components/content/ImageWrapper.astro";
+import Iframe from "../../components/content/Iframe.astro";
+import Youtube from "../../components/content/Youtube.astro";
+import MainLayout from "../../layouts/MainLayout.astro";
+import PageHeader from "../../components/PageHeader.astro";
+
+export async function getStaticPaths() {
+	const posts = await getCollection("blog");
+	return posts.map((post) => ({
+		params: { slug: post.slug },
+		props: post,
+	}));
+}
+type Props = CollectionEntry<"blog">;
+const post = Astro.props;
+const { Content } = await post.render();
+---
+
+<!-- <BlogPost {...post.data}> -->
+<MainLayout>
+	<PageHeader title={post.data.title} />
+	<article class="container mx-auto px-4 md:px-0 prose">
+		{
+			post.data.heroImage && (
+				<img
+					class="rounded-md"
+					src={post.data.heroImage}
+					alt={post.data.title}
+				/>
+			)
+		}
+		<Content components={{ img: ImageWrapper, Iframe, Youtube }} />
+	</article>
+</MainLayout>
+<!-- </BlogPost> -->

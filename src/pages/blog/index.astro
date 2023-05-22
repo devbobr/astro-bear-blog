@@ -1,0 +1,47 @@
+---
+import { getCollection } from "astro:content";
+import MainLayout from "../../layouts/MainLayout.astro";
+import PostPreviewItem from "../../components/PostPreviewItem.astro";
+import PageHeader from "../../components/PageHeader.astro";
+
+let posts = null;
+try {
+	posts = (await getCollection("blog"))
+		.filter((post) => !post.data.page === true) // We don't want to show navigation pages
+		.sort((a, b) => b.data.createDate.valueOf() - a.data.createDate.valueOf()); // Sort descending by date
+} catch {}
+---
+
+<MainLayout>
+	<PageHeader title="All news from our blog" />
+
+	<section class="container mx-auto">
+		<ul class="grid grid-cols-1 md:grid-cols-2">
+			{
+				posts?.map((post) => (
+					<PostPreviewItem
+						title={post.data.title}
+						description={post.data.description}
+						category={post.data.category || "Uncategorized"}
+						date={post.data.createDate}
+						image={post.data.heroImage}
+						href={`/blog/${post.slug}`}
+					/>
+				))
+			}
+		</ul>
+		{
+			!posts && (
+				<div class="flex justify-center w-full">
+					<a
+						role="button"
+						href="/addPost"
+						class="text-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-600/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
+					>
+						Create your first post
+					</a>
+				</div>
+			)
+		}
+	</section>
+</MainLayout>

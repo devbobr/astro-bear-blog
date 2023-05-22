@@ -1,0 +1,16 @@
+---
+type Props = {
+	title: string;
+};
+
+const { title } = Astro.props;
+---
+
+<div class="mx-auto max-w-2xl text-center py-20">
+	<span
+		class="mb-4 inline-block rounded-full bg-gray-50 px-3 py-1 text-xs font-semibold text-black"
+	>
+		OUR BLOG
+	</span>
+	<h1 class="text-5xl font-bold">{title}</h1>
+</div>

@@ -1,0 +1,35 @@
+---
+type Props = {
+	title: string;
+	description?: string;
+	date: Date;
+	image?: string;
+	href: string;
+	category: string;
+};
+
+const { title, date, image, href, category, description } = Astro.props;
+---
+
+<a
+	class="p-4 md:p-0 group mb-8 grid md:flex justify-center md:justify-normal"
+	href={href}
+>
+	<img
+		class="h-auto md:h-40 w-full md:w-48 rounded-lg object-cover"
+		src={image || "/placeholder-hero.jpg"}
+		alt="header"
+	/>
+	<div class="my-4 pt-2 md:ml-6 md:mt-0">
+		<span class="mb-2 block text-gray-500">{date.toLocaleDateString()}</span>
+		<p class="mt-4 w-full text-xs font-semibold leading-tight text-gray-700">
+			#{category}
+		</p>
+		<h4 class="text-xl font-semibold text-gray-900">
+			{title}
+		</h4>
+		<p class="max-w-xl text-lg text-gray-500">
+			{description || ""}
+		</p>
+	</div>
+</a>

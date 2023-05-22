@@ -1,0 +1,6 @@
+{
+	"BEAR_EXPORT_PATH": "./bear-exports/blog",
+	"TARGET_FILE_PATH": "./src/content/blog",
+	"TARGET_ASSET_PATH": "./public/blog",
+	"ASTRO_BLOG_PATH": "/blog"
+}

@@ -1,0 +1,100 @@
+---
+import { getCollection } from "astro:content";
+import MainLayout from "../layouts/MainLayout.astro";
+import PostPreviewItem from "../components/PostPreviewItem.astro";
+import PageHeader from "../components/PageHeader.astro";
+
+let posts = null;
+let firstPost = null;
+
+try {
+	posts = (await getCollection("blog"))
+		.filter((post) => post.data.featured === true) // We don't want to show navigation pages
+		.sort((a, b) => b.data.createDate.valueOf() - a.data.createDate.valueOf()); // Order descending by date
+
+	firstPost = posts[0];
+} catch {}
+---
+
+<MainLayout>
+	<section class="relative overflow-hidden">
+		<div class="relative">
+			<div class="mx-auto max-w-xl lg:max-w-7xl">
+				<PageHeader title="Featured news from our blog" />
+
+				{
+					firstPost && (
+						<div class="my-18 -mx-4 flex flex-wrap px-4">
+							<div class="mb-12 w-full px-4 lg:mb-0 lg:w-1/2">
+								{firstPost && (
+									<a
+										class="group block w-full"
+										href={`/blog/${firstPost.slug}`}
+									>
+										<img
+											class="mb-5 block w-full rounded-lg"
+											src={firstPost.data.heroImage || "/placeholder-hero.jpg"}
+											alt="hero"
+										/>
+										<span class="mb-5 block text-gray-500">
+											{firstPost.data.createDate.toLocaleDateString()}
+										</span>
+										<p class="mt-4 w-full text-xs font-semibold leading-tight text-gray-700">
+											#{firstPost.data.category || "Uncategorized"}
+										</p>
+										<h4 class="mb-5 text-3xl font-semibold text-gray-900">
+											{firstPost.data.title}
+										</h4>
+										<p class="max-w-xl text-lg text-gray-500">
+											{firstPost.data.description}
+										</p>
+									</a>
+								)}
+							</div>
+							<div class="w-full px-4 lg:w-1/2">
+								{posts?.slice(1).map((post) => (
+									<PostPreviewItem
+										title={post.data.title}
+										description={post.data.description}
+										category={post.data.category || "Uncategorized"}
+										date={post.data.createDate}
+										image={post.data.heroImage}
+										href={`/blog/${post.slug}`}
+									/>
+								))}
+							</div>
+						</div>
+					)
+				}
+
+				{
+					!posts && (
+						<div class="flex justify-center w-full">
+							<a
+								role="button"
+								href="/addPost"
+								class="text-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-600/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
+							>
+								Create your first post
+							</a>
+						</div>
+					)
+				}
+
+				{
+					posts && (
+						<div class="mt-14 text-center">
+							<a
+								href="/blog"
+								type="button"
+								class="cursor-pointer rounded-md border border-black px-3 py-2 text-sm font-semibold text-black shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+							>
+								View All Posts
+							</a>
+						</div>
+					)
+				}
+			</div>
+		</div>
+	</section>
+</MainLayout>

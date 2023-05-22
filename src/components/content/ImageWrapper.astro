@@ -1,0 +1,20 @@
+---
+// import { Image } from "@astrojs/image/components";
+
+const props = Astro.props;
+
+const fn = props.src;
+const parts = fn?.split("?");
+let allProps = { ...props };
+const src = allProps["href"];
+
+if (parts) {
+	const query = parts[1];
+	const params = new URLSearchParams(query);
+	allProps = { ...props, ...Object.fromEntries(params) };
+}
+
+const width = allProps["width"] || 1200;
+---
+
+<img src={src} {...allProps} {width} alt="blog" />
