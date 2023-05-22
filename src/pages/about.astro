@@ -7,14 +7,19 @@ import type { AstroComponentFactory } from "astro/dist/runtime/server";
 import MainLayout from "../layouts/MainLayout.astro";
 import PageHeader from "../components/PageHeader.astro";
 
-const aboutPage = (await getCollection("blog")).find(
-	(p) => p.data.page === "about-me"
-);
-
+let aboutPage = null;
 let Content: AstroComponentFactory | null = null;
-if (aboutPage) {
-	Content = (await aboutPage.render()).Content;
-}
+
+try {
+	// check if the about page exists
+	aboutPage = (await getCollection("blog")).find(
+		(p) => p.data.page === "about-me"
+	);
+
+	if (aboutPage) {
+		Content = (await aboutPage.render()).Content;
+	}
+} catch {}
 
 const bearCreate = `bear://x-callback-url/create?title=About%20Me&tags=blog%2Fpage&open_note=yes&show_window=yes&edit=yes&text=---%0Apage%3A%20about-me%0AbearId%3A%20${crypto.randomUUID()}%0A---%0A%0AThis%20is%20me...%0A%0A`;
 ---
