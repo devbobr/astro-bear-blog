@@ -35,8 +35,21 @@ export default class BearFileHandler {
 		}
 
 		// Cleanup the export folder
-		await rm(config.BEAR_EXPORT_PATH, { recursive: true });
-		await mkdir(config.BEAR_EXPORT_PATH);
+		const entries = await readdir(config.BEAR_EXPORT_PATH, {
+			withFileTypes: true,
+		});
+
+		for await (const entry of entries) {
+			if (entry.name.startsWith(".")) continue; // We don't want to delete hidden files
+
+			if (entry.isFile()) {
+				await rm(join(config.BEAR_EXPORT_PATH, entry.name));
+			} else {
+				await rm(join(config.BEAR_EXPORT_PATH, entry.name), {
+					recursive: true,
+				});
+			}
+		}
 	}
 
 	private async _handleCreatedFile(event: FileChangeInfo<string>) {
