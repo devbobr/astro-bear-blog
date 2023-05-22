@@ -2,6 +2,10 @@
 import BaseHead from "../components/BaseHead.astro";
 import Footer from "../components/Footer.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+
+const { pathname } = Astro.url;
+const baseClass =
+	"p-4 md:p-1 text-sm font-semibold text-gray-800 hover:text-gray-900";
 ---
 
 <!DOCTYPE html>
@@ -36,7 +40,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 							<li>
 								<a
 									href="/"
-									class="p-4 md:p-1 text-sm font-semibold text-gray-800 hover:text-gray-900"
+									class:list={[baseClass, { active: pathname === "/" }]}
 								>
 									Home
 								</a>
@@ -44,7 +48,10 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 							<li>
 								<a
 									href="/blog"
-									class="p-4 md:p-1 text-sm font-semibold text-gray-800 hover:text-gray-900"
+									class:list={[
+										baseClass,
+										{ active: pathname.startsWith("/blog") },
+									]}
 								>
 									Blogposts
 								</a>
@@ -52,7 +59,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 							<li>
 								<a
 									href="/about"
-									class="p-4 md:p-1 text-sm font-semibold text-gray-800 hover:text-gray-900"
+									class:list={[baseClass, { active: pathname === "/about" }]}
 								>
 									About
 								</a>
@@ -108,5 +115,11 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 				menu?.classList.toggle("open");
 			});
 		</script>
+
+		<style>
+			.active {
+				border-bottom: 3px solid black;
+			}
+		</style>
 	</body>
 </html>
