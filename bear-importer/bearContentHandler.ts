@@ -185,6 +185,11 @@ export default class BearContentHandler {
 		this._fileContent = this._fileContent.replace(
 			regexPattern,
 			(match: string, link, _empty, comment) => {
+				// Check if the link is absolute
+				if (link.startsWith("http")) {
+					return match;
+				}
+
 				const slugifiedLink = BearContentHandler.slugify(
 					decodeURIComponent(link),
 					true
