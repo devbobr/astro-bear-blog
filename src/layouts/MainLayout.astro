@@ -67,12 +67,17 @@ const baseClass =
 						</ul>
 					</div>
 					<div class="hidden lg:block">
-						<!-- <button
-							type="button"
-							class="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-						>
-							Button text
-						</button> -->
+						{
+							import.meta.env.DEV && (
+								<a
+									href="/addPost"
+									type="button"
+									class="text-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-600/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
+								>
+									Create new post
+								</a>
+							)
+						}
 					</div>
 					<div class="btnMobileMenu z-10 md:hidden">
 						<svg
