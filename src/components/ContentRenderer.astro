@@ -5,6 +5,7 @@ import type { CollectionEntry } from "astro:content";
 import ImageWrapper from "./content/ImageWrapper.astro";
 import Iframe from "./content/Iframe.astro";
 import Youtube from "./content/Youtube.astro";
+import Grid from "./content/Grid.astro";
 
 type Props = {
 	content: CollectionEntry<"blog"> | undefined;
@@ -22,7 +23,7 @@ if (content) {
 
 {
 	Content ? (
-		<Content components={{ img: ImageWrapper, Iframe, Youtube }} />
+		<Content components={{ img: ImageWrapper, Iframe, Youtube, Grid }} />
 	) : (
 		createUrl && (
 			<div class="flex justify-center w-full">
