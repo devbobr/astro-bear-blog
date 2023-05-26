@@ -1,47 +1,21 @@
 ---
-import type { AstroComponentFactory } from "astro/dist/runtime/server";
 import { getCollection } from "astro:content";
-import ImageWrapper from "../components/content/ImageWrapper.astro";
-import Iframe from "../components/content/Iframe.astro";
-import Youtube from "../components/content/Youtube.astro";
+
 import MainLayout from "../layouts/MainLayout.astro";
 import PageHeader from "../components/PageHeader.astro";
+import ContentRenderer from "../components/ContentRenderer.astro";
 
-let aboutPage = null;
-let Content: AstroComponentFactory | null = null;
+const aboutPage = (await getCollection("blog")).find(
+	(p) => p.data.page === "about-me"
+);
 
-try {
-	// check if the about page exists
-	aboutPage = (await getCollection("blog")).find(
-		(p) => p.data.page === "about-me"
-	);
-
-	if (aboutPage) {
-		Content = (await aboutPage.render()).Content;
-	}
-} catch {}
-
-const bearCreate = `bear://x-callback-url/create?title=About%20Me&tags=blog%2Fpage&open_note=yes&show_window=yes&edit=yes&text=---%0Apage%3A%20about-me%0AbearId%3A%20${crypto.randomUUID()}%0A---%0A%0AThis%20is%20me...%0A%0A`;
+const createUrl = `bear://x-callback-url/create?title=About%20Me&tags=blog%2Fpage&open_note=yes&show_window=yes&edit=yes&text=---%0Apage%3A%20about-me%0AbearId%3A%20${crypto.randomUUID()}%0A---%0A%0AThis%20is%20me...%0A%0A`;
 ---
 
 <MainLayout>
 	<article class="container mx-auto px-4 md:px-0 prose">
 		{aboutPage && <PageHeader title={aboutPage.data.title} />}
 
-		{
-			Content ? (
-				<Content components={{ img: ImageWrapper, Iframe, Youtube }} />
-			) : (
-				<div class="flex justify-center w-full">
-					<a
-						role="button"
-						href={bearCreate}
-						class="text-center no-underline rounded-md bg-green-600 px-3 my-12 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-600/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
-					>
-						Create this page in Bear
-					</a>
-				</div>
-			)
-		}
+		<ContentRenderer content={aboutPage} createUrl={createUrl} />
 	</article>
 </MainLayout>

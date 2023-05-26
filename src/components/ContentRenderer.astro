@@ -1,0 +1,39 @@
+---
+import type { AstroComponentFactory } from "astro/dist/runtime/server";
+import type { CollectionEntry } from "astro:content";
+
+import ImageWrapper from "./content/ImageWrapper.astro";
+import Iframe from "./content/Iframe.astro";
+import Youtube from "./content/Youtube.astro";
+
+type Props = {
+	content: CollectionEntry<"blog"> | undefined;
+	createUrl?: string;
+};
+
+const { content, createUrl } = Astro.props;
+
+let Content: AstroComponentFactory | null = null;
+
+if (content) {
+	Content = (await content.render()).Content;
+}
+---
+
+{
+	Content ? (
+		<Content components={{ img: ImageWrapper, Iframe, Youtube }} />
+	) : (
+		createUrl && (
+			<div class="flex justify-center w-full">
+				<a
+					role="button"
+					href={createUrl}
+					class="text-center no-underline rounded-md bg-green-600 px-3 my-12 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-600/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
+				>
+					Create this page in Bear
+				</a>
+			</div>
+		)
+	)
+}
