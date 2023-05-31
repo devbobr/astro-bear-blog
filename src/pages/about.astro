@@ -5,9 +5,13 @@ import MainLayout from "../layouts/MainLayout.astro";
 import PageHeader from "../components/PageHeader.astro";
 import ContentRenderer from "../components/ContentRenderer.astro";
 
-const aboutPage = (await getCollection("blog")).find(
-	(p) => p.data.page === "about-me"
-);
+let aboutPage = undefined;
+
+try {
+	aboutPage = (await getCollection("blog")).find(
+		(p) => p.data.page === "about-me"
+	);
+} catch {}
 
 const createUrl = `bear://x-callback-url/create?title=About%20Me&tags=blog%2Fpage&open_note=yes&show_window=yes&edit=yes&text=---%0Apage%3A%20about-me%0AbearId%3A%20${crypto.randomUUID()}%0A---%0A%0AThis%20is%20me...%0A%0A`;
 ---
