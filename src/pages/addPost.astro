@@ -32,6 +32,7 @@ import { categories } from "../content/config";
 									/>
 								</div>
 							</div>
+
 							<div>
 								<label for="" class="text-base font-medium text-gray-900">
 									Category
@@ -50,6 +51,7 @@ import { categories } from "../content/config";
 									</select>
 								</div>
 							</div>
+
 							<div>
 								<div class="flex items-center justify-between">
 									<label for="" class="text-base font-medium text-gray-900">
@@ -65,84 +67,72 @@ import { categories } from "../content/config";
 									/>
 								</div>
 							</div>
+
 							<div class="flex justify-between items-center">
-								<div class="flex items-center justify-between">
-									<label for="" class="text-base font-medium text-gray-900">
-										Will the post have a hero image?
-									</label>
-								</div>
-								<div class="mt-2">
-									<input
-										class="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
-										type="checkbox"
-										name="heroImage"
-									/>
-								</div>
-							</div>
-							<div class="flex justify-between items-center">
-								<div class="flex items-center justify-between">
-									<label for="" class="text-base font-medium text-gray-900">
-										Will the post be featured?
-									</label>
-								</div>
-								<div class="mt-2">
-									<input
-										class="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
-										type="checkbox"
-										name="featured"
-									/>
-								</div>
-							</div>
-							<!-- <div>
-								<div class="flex items-center justify-between">
-									<label for="" class="text-base font-medium text-gray-900">
-										Will be page content form menu item
-									</label>
-								</div>
-								<div class="mt-2">
-									<input
-										class="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
-										type="text"
-										placeholder="Menu path"
-										name="menuPath"
-									/>
-								</div>
-							</div> -->
-							<div>
-								<button
-									type="submit"
-									class="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
+								<label
+									for="heroImage"
+									class="text-base font-medium text-gray-900"
 								>
-									Create new post
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										width="16"
-										height="16"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										stroke-width="2"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										class="ml-2"
-									>
-										<line x1="5" y1="12" x2="19" y2="12"></line>
-										<polyline points="12 5 19 12 12 19"></polyline>
-									</svg>
-								</button>
+									Will the post have a hero image?
+								</label>
+								<input
+									class="flex w-4 h-4 rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+									type="checkbox"
+									name="heroImage"
+								/>
 							</div>
+
+							<div class="flex justify-between items-center">
+								<label
+									for="featured"
+									class="flex-grow text-base font-medium text-gray-900"
+								>
+									Will the post be featured?
+								</label>
+								<input
+									class="flex h-4 w-4 rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+									type="checkbox"
+									name="featured"
+								/>
+							</div>
+						</div>
+
+						<div>
+							<button
+								type="submit"
+								class="inline-flex w-full items-center justify-center rounded-md bg-black mt-12 px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
+							>
+								Create new post
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									width="16"
+									height="16"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									class="ml-2"
+								>
+									<line x1="5" y1="12" x2="19" y2="12"></line>
+									<polyline points="12 5 19 12 12 19"></polyline>
+								</svg>
+							</button>
 						</div>
 					</form>
 				</div>
 			</div>
-			<div class="h-full w-full">
-				<img
-					class="mx-auto h-full w-full rounded-md object-cover"
-					src="https://images.unsplash.com/photo-1630673245362-f69d2b93880e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80"
-					alt=""
-				/>
-			</div>
 		</div>
+		<div class="h-full w-full">
+			<img
+				class="mx-auto h-full w-full rounded-md object-cover"
+				src="https://images.unsplash.com/photo-1630673245362-f69d2b93880e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80"
+				alt=""
+			/>
+		</div>
+
+		<a id="submitLink" href="#" class="hidden"> Submit</a>
 	</section>
 </MainLayout>
 
@@ -150,6 +140,7 @@ import { categories } from "../content/config";
 	const frmNewPost = document.querySelector(
 		"#frmNewPost"
 	) as HTMLFormElement | null;
+
 	frmNewPost?.addEventListener("submit", (e) => {
 		e.preventDefault();
 		const formData = new FormData(frmNewPost);
@@ -176,6 +167,12 @@ import { categories } from "../content/config";
 			data.title
 		}&text=${encodeURIComponent(fmText)}&tags=blog`;
 
-		window.open(url, "_blank");
+		//
+		const submitLink = document.querySelector(
+			"#submitLink"
+		) as HTMLAnchorElement;
+		submitLink.href = url;
+		submitLink.click();
+		// window.open(url, "_blank");
 	});
 </script>
